@@ -8,11 +8,11 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 3000;
+const port = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
-
+app.set('public', path.join(__dirname, '/'));
 // Configure middleware
 
 // Use morgan logger for logging requests
