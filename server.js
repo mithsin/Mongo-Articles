@@ -2,19 +2,21 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+
+// Our scraping tools
+// Axios is a promised-based http library, similar to jQuery's Ajax method
+// It works on the client and on the server
 var axios = require("axios");
 var cheerio = require("cheerio");
 
 // Require all models
 var db = require("./models");
 
-const port = process.env.PORT || 3000;
+var PORT = 3000;
 
 // Initialize Express
 var app = express();
-app.use(express.static(__dirname + "/public"));
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+
 // Configure middleware
 
 // Use morgan logger for logging requests
@@ -23,9 +25,6 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
-
-// Set mongoose to leverage built in JavaScript ES6 Promises
-// Connect to the Mongo DB
 mongoose.Promise = Promise;
 mongoose.connect("mongodb://localhost/mongoArt", {
   useMongoClient: true
@@ -41,15 +40,13 @@ app.get("/scrape", function(req, res) {
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
+    $("#recent-article-container").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this)
-        .find("a").text();
-      result.link = $(this)
-        .find("p").find("span.summary-span").text();
+      result.title = $(this).find("h3").find('a').text();
+      result.link = $(this).find("h3").find('a').attr('href');
 
       // Create a new Article using the `result` object built from scraping
       db.Article
