@@ -1,0 +1,20 @@
+<div class="center">
+    <h1>MONGO ARTICLEs</h1>
+    <button id="scrape">Get Articles</button>
+</div>
+<div class="wrapper">
+    {{#each scraped}}
+        <div class="article">
+            <div class="headline" data-id="{{_id}}"><h4>{{headline}}</h4></div>
+            <div><a href="{{link}}" target="_blank">{{summary}}</a></div>
+            <div class="comments" data-id="{{_id}}">Comments</div>
+            <div id="{{_id}}" class="commentBody" data-id="{{_id}}"></div>
+            <div>
+                <textarea id="Comment{{_id}}" class="commentArea" data-id="{{_id}}"></textarea>
+                <button class="submit" data-id="{{_id}}">Submit</button>
+            </div>
+        </div>
+    {{/each}}
+</div>
+
+<script src="./assets/js/app.js"></script>

@@ -1,0 +1,7 @@
+body {background-color: #6693cd;}
+a {color: black;text-decoration: none;}
+button {background-color: snow;}
+.commentHolder {height: 150px;overflow: scroll;}
+.wrapper {margin: auto;width: 80%;background-color: #0089ec;}
+.article {background-color: #ffffff;width:47%;float:left;height: 300px;margin:10px;padding: 10px;}
+.center {margin: auto;}
