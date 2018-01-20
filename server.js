@@ -62,6 +62,17 @@ app.get("/", function (req, res) {
     })
 });
 
+app.get("/articles", function(req, res) {
+  db.Article
+    .find({})
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
 app.get("/articles/:id", function (req, res) {
     db.Article.findOne({_id: req.params.id})
         .populate("comment")
