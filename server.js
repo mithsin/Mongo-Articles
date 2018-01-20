@@ -11,7 +11,7 @@ const db = require("./models");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static("public"));
@@ -22,15 +22,7 @@ app.set("view engine", "handlebars");
 
 mongoose.Promise = Promise;
 
-if (process.env.MONGODB_URI) {
-    mongoose.connect(process.env.MONGODB_URI);
-}
-else {
-    mongoose.connect("mongodb://localhost/scraper");
-}
-
-
-
+mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost/scraper");
 
 let scraped = {};
 
